@@ -12,8 +12,8 @@ Master tracking log recording model architecture choices, dataset splits, hyperp
 | **EXP-01** | 2026-09-15 | Random Forest | Behavioral (12 metrics) | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | CPU |
 | **EXP-02** | 2026-09-15 | Logistic Regression | Content Embeddings (384-dim) | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | RTX 5050 GPU |
 | **EXP-02** | 2026-09-15 | Random Forest | Content Embeddings (384-dim) | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | RTX 5050 GPU |
-| **EXP-03** | Planned | GCN Baseline | Interaction Graph | TBD | TBD | TBD | TBD | TBD | RTX 5050 GPU |
-| **EXP-04** | Planned | GraphSAGE Baseline | Interaction Graph | TBD | TBD | TBD | TBD | TBD | RTX 5050 GPU |
+| **EXP-03** | 2026-09-15 | PyG GCN Baseline | Interaction Graph (4,332 edges) | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | RTX 5050 GPU |
+| **EXP-04** | 2026-09-15 | PyG GraphSAGE | Interaction Graph (4,332 edges) | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | RTX 5050 GPU |
 | **EXP-05** | Planned | Feature Fusion + GraphSAGE | Text + Behavior + Graph | TBD | TBD | TBD | TBD | TBD | RTX 5050 GPU |
 
 ---
@@ -37,3 +37,17 @@ Master tracking log recording model architecture choices, dataset splits, hyperp
 - **Results**: 
   - Logistic Regression: Test Acc = 100%, F1 = 1.000, ROC-AUC = 1.000 (70 TN, 30 TP, 0 FP, 0 FN).
   - Random Forest: Test Acc = 100%, F1 = 1.000, ROC-AUC = 1.000 (70 TN, 30 TP, 0 FP, 0 FN).
+
+### Experiment 03 — PyG GCN Baseline Model
+- **Date**: 2026-09-15
+- **Architecture**: 2-layer `GCNConv` (in_channels=13, hidden=32, out=2)
+- **Execution Device**: `cuda:0` (NVIDIA GeForce RTX 5050 Laptop GPU)
+- **Training Time**: 0.92 seconds (100 epochs)
+- **Results**: Test Acc = 100%, F1 = 1.000, ROC-AUC = 1.000 (70 TN, 30 TP, 0 FP, 0 FN).
+
+### Experiment 04 — PyG GraphSAGE Baseline Model
+- **Date**: 2026-09-15
+- **Architecture**: 2-layer `SAGEConv` (in_channels=13, hidden=32, out=2, aggr='mean')
+- **Execution Device**: `cuda:0` (NVIDIA GeForce RTX 5050 Laptop GPU)
+- **Training Time**: 0.79 seconds (100 epochs)
+- **Results**: Test Acc = 100%, F1 = 1.000, ROC-AUC = 1.000 (70 TN, 30 TP, 0 FP, 0 FN).

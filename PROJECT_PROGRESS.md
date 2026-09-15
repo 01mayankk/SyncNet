@@ -27,9 +27,9 @@ Legend: `[ ] Not Started` | `[~] In Progress` | `[x] Completed` | `[!] Blocked`
 | **Phase 2** | Behavioral feature extraction & tab features | HIGH | `[x]` | Preprocessing | `notebooks/04_behavioral_features.ipynb` | `fa93b7f` |
 | **Phase 3** | Content embeddings with Transformer (MiniLM/DistilBERT) | CRITICAL | `[x]` | Preprocessed text | `notebooks/03_transformer_embeddings.ipynb` | `d8b9fb0` |
 | **Phase 3** | Behavioral baseline experiment (Logistic / Random Forest) | HIGH | `[x]` | Behavioral features | Baseline metrics log | `d8b9fb0` |
-| **Phase 4** | User-User interaction graph construction | CRITICAL | `[ ]` | Preprocessed data | `notebooks/05_graph_construction.ipynb` | Uncommitted |
-| **Phase 4** | Implement PyG GCN baseline model experiment | HIGH | `[ ]` | Interaction graph | `notebooks/06_gnn_baseline.ipynb` | Uncommitted |
-| **Phase 4** | Implement PyG GraphSAGE model experiment | HIGH | `[ ]` | Interaction graph | `notebooks/07_graphsage_experiment.ipynb` | Uncommitted |
+| **Phase 4** | User-User interaction graph construction | CRITICAL | `[x]` | Preprocessed data | `notebooks/05_graph_construction.ipynb` | `Pending` |
+| **Phase 4** | Implement PyG GCN baseline model experiment | HIGH | `[x]` | Interaction graph | `notebooks/06_gnn_baseline.ipynb` | `Pending` |
+| **Phase 4** | Implement PyG GraphSAGE model experiment | HIGH | `[x]` | Interaction graph | `notebooks/07_graphsage_experiment.ipynb` | `Pending` |
 | **Phase 5** | Feature fusion model (Transformer + Behavior + Graph) | CRITICAL | `[ ]` | Embeddings + Graph | `notebooks/08_feature_fusion.ipynb` | Uncommitted |
 | **Phase 5** | Cluster detection & representation learning | HIGH | `[ ]` | Feature fusion | `notebooks/09_cluster_detection.ipynb` | Uncommitted |
 | **Phase 5** | Cluster coordination score formulation | HIGH | `[ ]` | Cluster detection | Coordination scoring module | Uncommitted |
@@ -49,7 +49,7 @@ Legend: `[ ] Not Started` | `[~] In Progress` | `[x] Completed` | `[!] Blocked`
 - **Phase 1: Environment Setup & Foundation**: Completed (`100%`)
 - **Phase 2: Data Preprocessing & Features**: Completed (`100%`)
 - **Phase 3: Transformer Embeddings & Behavioral Baseline**: Completed (`100%`)
-- **Phase 4: Graph Construction & GNN Baseline**: Not Started (`0%`)
+- **Phase 4: Graph Construction & GNN Baseline**: Completed (`100%`)
 - **Phase 5: Feature Fusion & Reactive Simulation**: Not Started (`0%`)
 - **Phase 6: FastAPI Backend Serving**: Not Started (`0%`)
 - **Phase 7: Next.js Interactive Dashboard**: Not Started (`0%`)
