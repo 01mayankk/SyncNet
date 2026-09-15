@@ -1,13 +1,25 @@
 import time
 import torch
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.app.config import settings
+from backend.app.api.v1 import api_v1_router
+from backend.app.inference.gnn_inference import GNNInferenceService
+from backend.app.reactive.reactive_engine import ReactiveEngine
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    # Pre-warm GNN inference and Reactive engine resources during startup
+    GNNInferenceService.get_instance()
+    ReactiveEngine.get_instance()
+    yield
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
     version=settings.VERSION,
     description="SyncNet Backend Service — Coordinated Bot-Network Detection with Reactive Throttling",
+    lifespan=lifespan,
 )
 
 app.add_middleware(
@@ -17,6 +29,8 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+app.include_router(api_v1_router, prefix="/api/v1")
 
 @app.get("/")
 def root():
@@ -45,3 +59,4 @@ def health_check():
         "vram_total_mb": vram_total_mb,
         "system_ram_budget_gb": settings.MAX_SYSTEM_RAM_GB,
     }
+
