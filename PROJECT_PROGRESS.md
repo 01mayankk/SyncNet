@@ -11,16 +11,16 @@ Legend: `[ ] Not Started` | `[~] In Progress` | `[x] Completed` | `[!] Blocked`
 
 | Phase | Task Description | Priority | Status | Dependencies | Expected Output | Git Commit |
 | :--- | :--- | :--- | :---: | :--- | :--- | :--- |
-| **Phase 1** | Inspect repository and configure directory structure | CRITICAL | `[x]` | None | Folder tree initialized | Pending |
-| **Phase 1** | Create project status & progress tracking files | CRITICAL | `[x]` | Repo inspection | `PROJECT_STATUS.md`, `PROJECT_PROGRESS.md` | Pending |
-| **Phase 1** | Create project root documentation & licensing | HIGH | `[x]` | Tracking files | `README.md`, `LICENSE`, `.gitignore`, `.env.example` | Pending |
-| **Phase 1** | Create architecture specification & component READMEs | HIGH | `[x]` | Root docs | `docs/system_architecture.md`, `backend/README.md`, etc. | Pending |
-| **Phase 1** | Create Python `.venv` environment | CRITICAL | `[x]` | Python 3.10 | Local `.venv/` directory | Pending |
-| **Phase 1** | Install PyTorch (CUDA), PyG, Transformers, FastAPI | CRITICAL | `[x]` | `.venv/` | Dependencies installed | Pending |
-| **Phase 1** | Implement GPU & PyG runtime verification scripts | CRITICAL | `[x]` | `.venv/` | `verify_gpu.py`, `verify_pyg.py` | Pending |
-| **Phase 1** | Execute verification scripts & log environment diagnostics | HIGH | `[x]` | Verification scripts | `docs/environment_setup.log` | Pending |
-| **Phase 1** | Generate backend requirements specification | MEDIUM | `[x]` | Dependencies | `backend/requirements.txt` | Pending |
-| **Phase 1** | Commit initial foundation & push to GitHub origin | CRITICAL | `[~]` | Verification log | Initial Git commit on `main` | Pending |
+| **Phase 1** | Inspect repository and configure directory structure | CRITICAL | `[x]` | None | Folder tree initialized | `9f38e1c` |
+| **Phase 1** | Create project status & progress tracking files | CRITICAL | `[x]` | Repo inspection | `PROJECT_STATUS.md`, `PROJECT_PROGRESS.md` | `9f38e1c` |
+| **Phase 1** | Create project root documentation & licensing | HIGH | `[x]` | Tracking files | `README.md`, `LICENSE`, `.gitignore`, `.env.example` | `9f38e1c` |
+| **Phase 1** | Create architecture specification & component READMEs | HIGH | `[x]` | Root docs | `docs/system_architecture.md`, `backend/README.md`, etc. | `9f38e1c` |
+| **Phase 1** | Create Python `.venv` environment | CRITICAL | `[x]` | Python 3.10 | Local `.venv/` directory | `9f38e1c` |
+| **Phase 1** | Install PyTorch (CUDA), PyG, Transformers, FastAPI | CRITICAL | `[x]` | `.venv/` | Dependencies installed | `9f38e1c` |
+| **Phase 1** | Implement GPU & PyG runtime verification scripts | CRITICAL | `[x]` | `.venv/` | `verify_gpu.py`, `verify_pyg.py` | `9f38e1c` |
+| **Phase 1** | Execute verification scripts & log environment diagnostics | HIGH | `[x]` | Verification scripts | `docs/environment_setup.log` | `9f38e1c` |
+| **Phase 1** | Generate backend requirements specification | MEDIUM | `[x]` | Dependencies | `backend/requirements.txt` | `9f38e1c` |
+| **Phase 1** | Commit initial foundation & push to GitHub origin | CRITICAL | `[x]` | Verification log | Initial Git commit on `main` | `9f38e1c` |
 | **Phase 2** | Acquire dataset subset (TwiBot-22 / Cresci-2017) | CRITICAL | `[ ]` | Phase 1 complete | Raw data in `data/raw/` | Uncommitted |
 | **Phase 2** | Data exploration notebook & statistical summary | HIGH | `[ ]` | Dataset acquisition | `notebooks/01_data_exploration.ipynb` | Uncommitted |
 | **Phase 2** | Preprocessing & data cleaning pipeline script | HIGH | `[ ]` | Data exploration | `data/processed/` dataset | Uncommitted |
