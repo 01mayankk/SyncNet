@@ -16,10 +16,10 @@ Legend: `[ ] Not Started` | `[~] In Progress` | `[x] Completed` | `[!] Blocked`
 | **Phase 1** | Create project root documentation & licensing | HIGH | `[x]` | Tracking files | `README.md`, `LICENSE`, `.gitignore`, `.env.example` | Pending |
 | **Phase 1** | Create architecture specification & component READMEs | HIGH | `[x]` | Root docs | `docs/system_architecture.md`, `backend/README.md`, etc. | Pending |
 | **Phase 1** | Create Python `.venv` environment | CRITICAL | `[x]` | Python 3.10 | Local `.venv/` directory | Pending |
-| **Phase 1** | Install PyTorch (CUDA), PyG, Transformers, FastAPI | CRITICAL | `[~]` | `.venv/` | Dependencies installed | Pending |
+| **Phase 1** | Install PyTorch (CUDA), PyG, Transformers, FastAPI | CRITICAL | `[x]` | `.venv/` | Dependencies installed | Pending |
 | **Phase 1** | Implement GPU & PyG runtime verification scripts | CRITICAL | `[x]` | `.venv/` | `verify_gpu.py`, `verify_pyg.py` | Pending |
-| **Phase 1** | Execute verification scripts & log environment diagnostics | HIGH | `[~]` | Verification scripts | `docs/environment_setup.log` | Pending |
-| **Phase 1** | Generate backend requirements specification | MEDIUM | `[~]` | Dependencies | `backend/requirements.txt` | Pending |
+| **Phase 1** | Execute verification scripts & log environment diagnostics | HIGH | `[x]` | Verification scripts | `docs/environment_setup.log` | Pending |
+| **Phase 1** | Generate backend requirements specification | MEDIUM | `[x]` | Dependencies | `backend/requirements.txt` | Pending |
 | **Phase 1** | Commit initial foundation & push to GitHub origin | CRITICAL | `[~]` | Verification log | Initial Git commit on `main` | Pending |
 | **Phase 2** | Acquire dataset subset (TwiBot-22 / Cresci-2017) | CRITICAL | `[ ]` | Phase 1 complete | Raw data in `data/raw/` | Uncommitted |
 | **Phase 2** | Data exploration notebook & statistical summary | HIGH | `[ ]` | Dataset acquisition | `notebooks/01_data_exploration.ipynb` | Uncommitted |
@@ -46,7 +46,7 @@ Legend: `[ ] Not Started` | `[~] In Progress` | `[x] Completed` | `[!] Blocked`
 ---
 
 ## Milestone Summary
-- **Phase 1: Environment Setup & Foundation**: In Progress (`~70%`)
+- **Phase 1: Environment Setup & Foundation**: Completed (`100%`)
 - **Phase 2: Data Preprocessing & Features**: Not Started (`0%`)
 - **Phase 3: Transformer Embeddings & Behavioral Baseline**: Not Started (`0%`)
 - **Phase 4: Graph Construction & GNN Baseline**: Not Started (`0%`)

@@ -18,21 +18,20 @@ Initialize clean project structure, establish `.venv` with PyTorch CUDA (RTX 505
 - Created baseline security and environment configuration templates (`.gitignore`, `.env.example`, `LICENSE`).
 - Created project status (`PROJECT_STATUS.md`) and project progress tracking (`PROJECT_PROGRESS.md`).
 - Designed initial system architecture specification using Mermaid (`docs/system_architecture.md`).
-- Configured `.venv` local virtual environment.
-- Configured minimal FastAPI health endpoint (`backend/app/main.py`, `backend/app/config.py`).
+- Configured `.venv` local virtual environment with PyTorch (`2.12.0.dev20260408+cu128`), PyTorch Geometric (`2.8.0.post1`), Hugging Face Transformers, FastAPI, Pydantic, Scikit-learn, Pandas, Pytest, and Psutil.
+- Verified NVIDIA GeForce RTX 5050 GPU tensor computation and VRAM memory bounds via `scripts/verify_gpu.py`.
+- Verified PyTorch Geometric (PyG) `GCNConv` and `SAGEConv` GPU forward passes on `cuda:0` via `scripts/verify_pyg.py`.
+- Recorded environment setup diagnostic log in `docs/environment_setup.log`.
+- Configured minimal FastAPI health service (`backend/app/main.py`, `backend/app/config.py`).
+- Exported pinned environment dependencies into `backend/requirements.txt`.
 
 ## In Progress
-- Verification of NVIDIA GeForce RTX 5050 GPU tensor computation and VRAM memory bounds via `scripts/verify_gpu.py`.
-- Verification of PyTorch Geometric (PyG) `GCNConv` and `SAGEConv` GPU forward passes via `scripts/verify_pyg.py`.
-- Generating `docs/environment_setup.log` and committing initial foundation to GitHub.
+- Git staging, conventional commit (`chore: initialize SyncNet environment, directory structure, and GPU runtime verification`), and pushing Phase 1 foundation to GitHub `main` branch.
 
 ## Next Steps
-- Execute GPU and PyG verification scripts (`scripts/verify_gpu.py`, `scripts/verify_pyg.py`).
-- Generate `docs/environment_setup.log`.
-- Generate `backend/requirements.txt`.
 - Stage and commit Phase 1 foundation (`chore: initialize SyncNet environment, directory structure, and GPU runtime verification`).
 - Push commit to GitHub origin `main`.
-- Proceed to Phase 2: Data Preprocessing & Exploratory Feature Engineering.
+- Initiate Phase 2: Data Preprocessing & Exploratory Feature Engineering.
 
 ## Blockers
 - None.
@@ -42,15 +41,16 @@ Initialize clean project structure, establish `.venv` with PyTorch CUDA (RTX 505
 - **Decision 002 (2026-09-15)**: Omit `torchvision` and `torchaudio` to avoid unneeded dependency bloat, allocating VRAM exclusively to HuggingFace Transformers and PyTorch Geometric.
 - **Decision 003 (2026-09-15)**: Postpone Docker Compose, PostgreSQL, and full Next.js package scaffolding to their respective implementation phases (Phase 6–8) to keep Phase 1 lean and reproducible.
 - **Decision 004 (2026-09-15)**: All system architecture diagrams strictly use valid Mermaid syntax with clear status demarcation (`[PLANNED SPECIFICATION]`).
-- **Decision 005 (2026-09-15)**: Reactive enforcement actions (throttling, escalation, decay) are strictly simulated within decision support state machine logic and will never execute actions against real social media platforms.
+- **Decision 005 (2026-09-15)**: Installed PyTorch CUDA 12.8 wheel build (`+cu128`) to support NVIDIA GeForce RTX 5050 Laptop GPU (Blackwell `sm_120` architecture).
+- **Decision 006 (2026-09-15)**: Reactive enforcement actions (throttling, escalation, decay) are strictly simulated within decision support state machine logic and will never execute actions against real social media platforms.
 
 ## Current Architecture
 - **Pipeline Specification (Planned)**:
   `Dataset ↓ Data Preprocessing ↓ Posts (Transformer Embeddings) + Behavioral Features ↓ Feature Fusion ↓ Interaction Graph ↓ GraphSAGE / GCN ↓ Node Representations ↓ Cluster Detection ↓ Coordination Score ↓ Reactive Decision Layer (NORMAL, FLAGGED, THROTTLED, ESCALATED, DECAYING, APPEALED) ↓ FastAPI Backend ↓ Next.js Frontend`
-- **Serving Stack**: Minimal FastAPI backend (`app/main.py`) with `/health` endpoint.
+- **Serving Stack**: Minimal FastAPI backend (`backend/app/main.py`) with `/health` endpoint verified.
 
 ## Current Hardware Budget
-- **GPU**: NVIDIA GeForce RTX 5050 (8 GB VRAM). Target VRAM usage < 6 GB.
+- **GPU**: NVIDIA GeForce RTX 5050 (8 GB VRAM). Verified operating at 80 MB VRAM baseline allocation.
 - **System RAM**: 24 GB total System RAM. Target project budget **~16 GB RAM** max (leaving 8 GB for OS, IDE, and tools).
 
 ## Current Dataset
@@ -60,10 +60,11 @@ Initialize clean project structure, establish `.venv` with PyTorch CUDA (RTX 505
 - None trained yet (Planned: Logistic Regression / Random Forest baselines in Phase 3, GCN/GraphSAGE in Phase 4).
 
 ## Current Experiment
-- **Experiment 0 — Environment Verification**: Testing PyTorch CUDA tensor execution and PyTorch Geometric GPU conv layers.
+- **Experiment 0 — Environment Verification**: Verified PyTorch CUDA tensor execution (236.12 ms) and PyTorch Geometric `GCNConv` & `SAGEConv` GPU forward passes on `cuda:0`.
 
 ## Current Results
-- PyTorch CUDA & PyG verification in progress.
+- **PyTorch CUDA**: 2000x2000 matrix multiplication executed on `cuda:0` in 236.12 ms.
+- **PyG Conv Execution**: `GCNConv` `[100, 64] -> [100, 32]` and `SAGEConv` `[100, 64] -> [100, 32]` executed successfully on `cuda:0`.
 
 ## Known Problems
 - None.

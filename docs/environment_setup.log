@@ -1,0 +1,51 @@
+============================================================
+SYNCNET — ENVIRONMENT SETUP & HARDWARE DIAGNOSTIC LOG
+Timestamp: 2026-09-15 22:47:16 IST
+============================================================
+
+1. SYSTEM & PYTHON RUNTIME
+Python Version    : 3.10.11
+Operating System  : Windows 11 AMD64
+System Total RAM  : 23.64 GB
+System Avail RAM  : 7.43 GB (Project Target Budget: ~16 GB)
+
+2. PYTORCH & CUDA RUNTIME
+PyTorch Version   : 2.12.0.dev20260408+cu128
+CUDA Available    : True
+CUDA Build Version: 12.8
+GPU Device Count  : 1
+GPU Device Name   : NVIDIA GeForce RTX 5050 Laptop GPU
+Total VRAM Memory : 7.96 GB (Project Hardware Spec: RTX 5050 8GB VRAM)
+
+--- Executing GPU Tensor Operation Test ---
+Tensor Shape      : torch.Size([2000, 2000])
+Tensor Device     : cuda:0
+Execution Time    : 236.12 ms
+VRAM Allocated    : 80.0 MB
+VRAM Reserved     : 80.0 MB
+[x] SUCCESS: PyTorch CUDA GPU tensor execution verified on RTX 5050!
+
+3. PYTORCH GEOMETRIC (PyG) GRAPH ENGINE
+PyG Version       : 2.8.0.post1
+Target Device     : cuda:0 (NVIDIA GeForce RTX 5050 Laptop GPU)
+Graph Nodes       : 100
+Graph Edges       : 500
+Feature Dim (x)   : torch.Size([100, 64])
+Data Device       : cuda:0
+
+--- Testing GCNConv Layer Execution ---
+GCN Output Shape  : torch.Size([100, 32])
+GCN Output Device : cuda:0
+[x] GCNConv GPU Forward Pass: SUCCESS
+
+--- Testing SAGEConv Layer Execution ---
+SAGE Output Shape : torch.Size([100, 32])
+SAGE Output Device: cuda:0
+[x] SAGEConv GPU Forward Pass: SUCCESS
+
+[x] SUCCESS: PyTorch Geometric GCN & GraphSAGE GPU layer execution verified!
+
+============================================================
+SUMMARY: Phase 1 Environment Setup & Hardware Runtime Verification complete.
+All diagnostic checks passed successfully.
+============================================================
