@@ -25,8 +25,8 @@ Legend: `[ ] Not Started` | `[~] In Progress` | `[x] Completed` | `[!] Blocked`
 | **Phase 2** | Data exploration notebook & statistical summary | HIGH | `[x]` | Dataset acquisition | `notebooks/01_data_exploration.ipynb` | `fa93b7f` |
 | **Phase 2** | Preprocessing & data cleaning pipeline script | HIGH | `[x]` | Data exploration | `data/processed/` dataset | `fa93b7f` |
 | **Phase 2** | Behavioral feature extraction & tab features | HIGH | `[x]` | Preprocessing | `notebooks/04_behavioral_features.ipynb` | `fa93b7f` |
-| **Phase 3** | Content embeddings with Transformer (MiniLM/DistilBERT) | CRITICAL | `[x]` | Preprocessed text | `notebooks/03_transformer_embeddings.ipynb` | `Pending` |
-| **Phase 3** | Behavioral baseline experiment (Logistic / Random Forest) | HIGH | `[x]` | Behavioral features | Baseline metrics log | `Pending` |
+| **Phase 3** | Content embeddings with Transformer (MiniLM/DistilBERT) | CRITICAL | `[x]` | Preprocessed text | `notebooks/03_transformer_embeddings.ipynb` | `d8b9fb0` |
+| **Phase 3** | Behavioral baseline experiment (Logistic / Random Forest) | HIGH | `[x]` | Behavioral features | Baseline metrics log | `d8b9fb0` |
 | **Phase 4** | User-User interaction graph construction | CRITICAL | `[ ]` | Preprocessed data | `notebooks/05_graph_construction.ipynb` | Uncommitted |
 | **Phase 4** | Implement PyG GCN baseline model experiment | HIGH | `[ ]` | Interaction graph | `notebooks/06_gnn_baseline.ipynb` | Uncommitted |
 | **Phase 4** | Implement PyG GraphSAGE model experiment | HIGH | `[ ]` | Interaction graph | `notebooks/07_graphsage_experiment.ipynb` | Uncommitted |
