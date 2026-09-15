@@ -21,10 +21,10 @@ Legend: `[ ] Not Started` | `[~] In Progress` | `[x] Completed` | `[!] Blocked`
 | **Phase 1** | Execute verification scripts & log environment diagnostics | HIGH | `[x]` | Verification scripts | `docs/environment_setup.log` | `9f38e1c` |
 | **Phase 1** | Generate backend requirements specification | MEDIUM | `[x]` | Dependencies | `backend/requirements.txt` | `9f38e1c` |
 | **Phase 1** | Commit initial foundation & push to GitHub origin | CRITICAL | `[x]` | Verification log | Initial Git commit on `main` | `9f38e1c` |
-| **Phase 2** | Acquire dataset subset (TwiBot-22 / Cresci-2017) | CRITICAL | `[x]` | Phase 1 complete | Raw data in `data/raw/` | `Pending` |
-| **Phase 2** | Data exploration notebook & statistical summary | HIGH | `[x]` | Dataset acquisition | `notebooks/01_data_exploration.ipynb` | `Pending` |
-| **Phase 2** | Preprocessing & data cleaning pipeline script | HIGH | `[x]` | Data exploration | `data/processed/` dataset | `Pending` |
-| **Phase 2** | Behavioral feature extraction & tab features | HIGH | `[x]` | Preprocessing | `notebooks/04_behavioral_features.ipynb` | `Pending` |
+| **Phase 2** | Acquire dataset subset (TwiBot-22 / Cresci-2017) | CRITICAL | `[x]` | Phase 1 complete | Raw data in `data/raw/` | `fa93b7f` |
+| **Phase 2** | Data exploration notebook & statistical summary | HIGH | `[x]` | Dataset acquisition | `notebooks/01_data_exploration.ipynb` | `fa93b7f` |
+| **Phase 2** | Preprocessing & data cleaning pipeline script | HIGH | `[x]` | Data exploration | `data/processed/` dataset | `fa93b7f` |
+| **Phase 2** | Behavioral feature extraction & tab features | HIGH | `[x]` | Preprocessing | `notebooks/04_behavioral_features.ipynb` | `fa93b7f` |
 | **Phase 3** | Content embeddings with Transformer (MiniLM/DistilBERT) | CRITICAL | `[ ]` | Preprocessed text | `notebooks/03_transformer_embeddings.ipynb` | Uncommitted |
 | **Phase 3** | Behavioral baseline experiment (Logistic / Random Forest) | HIGH | `[ ]` | Behavioral features | Baseline metrics log | Uncommitted |
 | **Phase 4** | User-User interaction graph construction | CRITICAL | `[ ]` | Preprocessed data | `notebooks/05_graph_construction.ipynb` | Uncommitted |
