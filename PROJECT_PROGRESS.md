@@ -27,9 +27,9 @@ Legend: `[ ] Not Started` | `[~] In Progress` | `[x] Completed` | `[!] Blocked`
 | **Phase 2** | Behavioral feature extraction & tab features | HIGH | `[x]` | Preprocessing | `notebooks/04_behavioral_features.ipynb` | `fa93b7f` |
 | **Phase 3** | Content embeddings with Transformer (MiniLM/DistilBERT) | CRITICAL | `[x]` | Preprocessed text | `notebooks/03_transformer_embeddings.ipynb` | `d8b9fb0` |
 | **Phase 3** | Behavioral baseline experiment (Logistic / Random Forest) | HIGH | `[x]` | Behavioral features | Baseline metrics log | `d8b9fb0` |
-| **Phase 4** | User-User interaction graph construction | CRITICAL | `[x]` | Preprocessed data | `notebooks/05_graph_construction.ipynb` | `Pending` |
-| **Phase 4** | Implement PyG GCN baseline model experiment | HIGH | `[x]` | Interaction graph | `notebooks/06_gnn_baseline.ipynb` | `Pending` |
-| **Phase 4** | Implement PyG GraphSAGE model experiment | HIGH | `[x]` | Interaction graph | `notebooks/07_graphsage_experiment.ipynb` | `Pending` |
+| **Phase 4** | User-User interaction graph construction | CRITICAL | `[x]` | Preprocessed data | `notebooks/05_graph_construction.ipynb` | `2a1e0dd` |
+| **Phase 4** | Implement PyG GCN baseline model experiment | HIGH | `[x]` | Interaction graph | `notebooks/06_gnn_baseline.ipynb` | `2a1e0dd` |
+| **Phase 4** | Implement PyG GraphSAGE model experiment | HIGH | `[x]` | Interaction graph | `notebooks/07_graphsage_experiment.ipynb` | `2a1e0dd` |
 | **Phase 5** | Feature fusion model (Transformer + Behavior + Graph) | CRITICAL | `[ ]` | Embeddings + Graph | `notebooks/08_feature_fusion.ipynb` | Uncommitted |
 | **Phase 5** | Cluster detection & representation learning | HIGH | `[ ]` | Feature fusion | `notebooks/09_cluster_detection.ipynb` | Uncommitted |
 | **Phase 5** | Cluster coordination score formulation | HIGH | `[ ]` | Cluster detection | Coordination scoring module | Uncommitted |
