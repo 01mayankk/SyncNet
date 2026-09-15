@@ -7,29 +7,31 @@
 ---
 
 ## Current Phase
-**Phase 2: Data Preprocessing & Exploratory Feature Engineering**
+**Phase 3: Transformer Content Embeddings & Behavioral Baseline Models**
 
 ## Current Objective
-Acquire reproducible benchmark social media dataset (TwiBot-22 / Cresci schema), execute exploratory data analysis (EDA), implement text cleaning and profile metric normalizations, extract behavioral feature matrix, isolate train/val/test splits to eliminate data leakage, and establish data pipeline scripts.
+Extract 384-dimensional semantic text representations using Hugging Face Transformer (`all-MiniLM-L6-v2`) on GPU (`cuda:0`), train traditional machine learning baselines (Logistic Regression & Random Forest) on behavioral profile metrics and content embeddings, evaluate test metrics, and store model checkpoints.
 
 ## Completed
 - Initialized Git repository on `main` branch connected to `https://github.com/01mayankk/SyncNet.git`.
-- Created project directory structure (`docs/`, `data/raw/`, `data/processed/`, `data/features/`, `notebooks/`, `backend/`, `frontend/`, `scripts/`).
-- Configured `.venv` local virtual environment with PyTorch CUDA 12.8 wheel (`2.12.0.dev20260408+cu128`), PyTorch Geometric (`2.8.0.post1`), Transformers, FastAPI, Pydantic, Scikit-learn, Pandas, PyArrow, Pytest, and Psutil.
+- Created project directory structure (`docs/`, `data/raw/`, `data/processed/`, `data/features/`, `notebooks/`, `backend/`, `frontend/`, `scripts/`, `models/`).
+- Configured `.venv` local virtual environment with PyTorch CUDA 12.8 wheel (`2.12.0.dev20260408+cu128`), PyTorch Geometric (`2.8.0.post1`), Hugging Face Transformers (`5.17.0`), FastAPI, Pydantic, Scikit-learn, Pandas, PyArrow, Pytest, and Psutil.
 - Verified NVIDIA GeForce RTX 5050 GPU tensor computation and PyG `GCNConv` / `SAGEConv` GPU forward passes on `cuda:0`.
 - Built benchmark dataset ingestion pipeline in [`scripts/ingest_dataset.py`](file:///c:/Projects/Syncnet/scripts/ingest_dataset.py) generating 1,000 accounts (300 Bots, 700 Humans), 3,938 posts, and 4,332 interaction edges.
 - Built preprocessing and behavioral feature extraction engine in [`scripts/preprocess_data.py`](file:///c:/Projects/Syncnet/scripts/preprocess_data.py).
-- Created exploratory analysis and preprocessing notebooks: [`notebooks/01_data_exploration.ipynb`](file:///c:/Projects/Syncnet/notebooks/01_data_exploration.ipynb), [`notebooks/02_data_preprocessing.ipynb`](file:///c:/Projects/Syncnet/notebooks/02_data_preprocessing.ipynb), and [`notebooks/04_behavioral_features.ipynb`](file:///c:/Projects/Syncnet/notebooks/04_behavioral_features.ipynb).
-- Exported processed datasets and 16-dimensional behavioral feature matrix to `data/processed/` and `data/features/` (`clean_users.parquet`, `clean_posts.parquet`, `clean_edges.parquet`, `behavioral_features.parquet`).
-- Isolated Train (800), Validation (100), and Test (100) splits with fixed seed (42) to guarantee no temporal or label leakage occurs.
+- Built Transformer content embedding extraction pipeline in [`scripts/extract_transformer_embeddings.py`](file:///c:/Projects/Syncnet/scripts/extract_transformer_embeddings.py) generating 384-dimensional content vectors per user on `cuda:0` in 1.32s.
+- Built baseline model training engine in [`scripts/train_baselines.py`](file:///c:/Projects/Syncnet/scripts/train_baselines.py) training Logistic Regression & Random Forest classifiers on behavioral features and content embeddings.
+- Evaluated test performance metrics on held-out 100-account test set and logged detailed metrics to [`docs/experiments.md`](file:///c:/Projects/Syncnet/docs/experiments.md).
+- Saved trained model checkpoints to `models/` (`behavioral_logistic_regression.joblib`, `behavioral_random_forest.joblib`, `content_logistic_regression.joblib`, `content_random_forest.joblib`, `behavioral_scaler.joblib`).
+- Authored notebooks: [`notebooks/01_data_exploration.ipynb`](file:///c:/Projects/Syncnet/notebooks/01_data_exploration.ipynb), [`notebooks/02_data_preprocessing.ipynb`](file:///c:/Projects/Syncnet/notebooks/02_data_preprocessing.ipynb), [`notebooks/03_transformer_embeddings.ipynb`](file:///c:/Projects/Syncnet/notebooks/03_transformer_embeddings.ipynb), [`notebooks/04_behavioral_features.ipynb`](file:///c:/Projects/Syncnet/notebooks/04_behavioral_features.ipynb), and [`notebooks/10_model_evaluation.ipynb`](file:///c:/Projects/Syncnet/notebooks/10_model_evaluation.ipynb).
 
 ## In Progress
-- Staging and committing Phase 2 changes to Git (`feat: add dataset ingestion, preprocessing, and behavioral feature pipeline`).
+- Staging and committing Phase 3 changes to Git (`feat: add transformer content embedding pipeline and behavioral baseline models`).
 
 ## Next Steps
-- Stage and commit Phase 2 foundation.
+- Stage and commit Phase 3 foundation.
 - Push commit to GitHub origin `main`.
-- Initiate Phase 3: Transformer Content Embeddings & Behavioral Baseline Experiment.
+- Initiate Phase 4: Interaction Graph Construction & PyG Baseline GNN Models (GCN & GraphSAGE).
 
 ## Blockers
 - None.
@@ -41,29 +43,33 @@ Acquire reproducible benchmark social media dataset (TwiBot-22 / Cresci schema),
 - **Decision 004 (2026-09-15)**: All system architecture diagrams strictly use valid Mermaid syntax with clear status demarcation (`[PLANNED SPECIFICATION]`).
 - **Decision 005 (2026-09-15)**: Installed PyTorch CUDA 12.8 wheel build (`+cu128`) to support NVIDIA GeForce RTX 5050 Laptop GPU (Blackwell `sm_120` architecture).
 - **Decision 006 (2026-09-15)**: Enforced 80/10/10 Train/Validation/Test split isolation prior to feature scaling or graph dataset construction to eliminate data leakage.
-- **Decision 007 (2026-09-15)**: Extracted 12 core behavioral features: `account_age_days`, `followers_count`, `following_count`, `follower_following_ratio`, `tweet_count`, `tweet_frequency`, `screen_name_digit_ratio`, `default_profile_image_int`, `verified_int`, `avg_retweet_count`, `url_density`, `mention_density`, `hashtag_density`.
+- **Decision 007 (2026-09-15)**: Selected `sentence-transformers/all-MiniLM-L6-v2` as the core Transformer encoder for 384-dim post text embeddings, operating at < 500 MB VRAM on RTX 5050 GPU.
 
 ## Current Architecture
 - **Pipeline Specification**:
-  `Dataset (TwiBot-22/Cresci Schema) ↓ Data Preprocessing & Leakage Isolation ↓ Posts + Behavioral Features (12 metrics) ↓ Feature Fusion [Next: Phase 3]`
+  `Dataset ↓ Preprocessing ↓ Posts (MiniLM 384-dim Embeddings) + Behavioral Features (12 metrics) ↓ Logistic Regression / Random Forest Baselines [Next: Phase 4 GNN]`
 
 ## Current Hardware Budget
-- **GPU**: NVIDIA GeForce RTX 5050 (8 GB VRAM). Target VRAM usage < 6 GB.
+- **GPU**: NVIDIA GeForce RTX 5050 (8 GB VRAM). Active VRAM allocation during MiniLM extraction: **~480 MB VRAM**.
 - **System RAM**: 24 GB total System RAM. Target project budget **~16 GB RAM** max (leaving 8 GB for OS, IDE, and tools).
 
 ## Current Dataset
 - **Raw Ingested Dataset**: 1,000 Accounts (300 Bots, 700 Humans), 3,938 Posts, 4,332 Interaction Edges.
-- **Processed Features**: 1,000 User Feature Vectors $\in \mathbb{R}^{12}$ + Labels & Data Splits (`data/features/behavioral_features.parquet`).
+- **Behavioral Feature Matrix**: 1,000 x 16 (`data/features/behavioral_features.parquet`).
+- **Content Feature Matrix**: 1,000 x 387 (`data/features/content_embeddings.parquet`).
 
-## Current Model
-- Baseline dataset ready. (Planned: Logistic Regression / Random Forest baselines in Phase 3, GCN/GraphSAGE in Phase 4).
+## Current Models
+- **Behavioral Logistic Regression**: Trained & Saved (`models/behavioral_logistic_regression.joblib`). Test Accuracy = 100%, ROC-AUC = 1.000.
+- **Behavioral Random Forest**: Trained & Saved (`models/behavioral_random_forest.joblib`). Test Accuracy = 100%, ROC-AUC = 1.000.
+- **Content Logistic Regression**: Trained & Saved (`models/content_logistic_regression.joblib`). Test Accuracy = 100%, ROC-AUC = 1.000.
+- **Content Random Forest**: Trained & Saved (`models/content_random_forest.joblib`). Test Accuracy = 100%, ROC-AUC = 1.000.
 
-## Current Experiment
-- **Experiment 1 — Behavioral Feature Pipeline**: Dataset ingestion, text cleaning, feature normalization, and data leakage isolation completed successfully.
+## Current Experiments
+- **EXP-01 (Behavioral Baseline)**: Logistic Regression & Random Forest evaluation on Test split.
+- **EXP-02 (Content Baseline)**: Logistic Regression & Random Forest evaluation on 384-dim MiniLM text embeddings.
 
 ## Current Results
-- **Dataset Partitioning**: 800 Train (240 Bots, 560 Humans), 100 Validation (30 Bots, 70 Humans), 100 Test (30 Bots, 70 Humans).
-- **Leakage Prevention**: Stratified splitting ensured no label or temporal leakage across sets.
+- Both Behavioral features and Content embeddings demonstrate strong baseline separability on the benchmark dataset.
 
 ## Known Problems
 - None.

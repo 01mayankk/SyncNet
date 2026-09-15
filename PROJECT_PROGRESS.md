@@ -25,8 +25,8 @@ Legend: `[ ] Not Started` | `[~] In Progress` | `[x] Completed` | `[!] Blocked`
 | **Phase 2** | Data exploration notebook & statistical summary | HIGH | `[x]` | Dataset acquisition | `notebooks/01_data_exploration.ipynb` | `fa93b7f` |
 | **Phase 2** | Preprocessing & data cleaning pipeline script | HIGH | `[x]` | Data exploration | `data/processed/` dataset | `fa93b7f` |
 | **Phase 2** | Behavioral feature extraction & tab features | HIGH | `[x]` | Preprocessing | `notebooks/04_behavioral_features.ipynb` | `fa93b7f` |
-| **Phase 3** | Content embeddings with Transformer (MiniLM/DistilBERT) | CRITICAL | `[ ]` | Preprocessed text | `notebooks/03_transformer_embeddings.ipynb` | Uncommitted |
-| **Phase 3** | Behavioral baseline experiment (Logistic / Random Forest) | HIGH | `[ ]` | Behavioral features | Baseline metrics log | Uncommitted |
+| **Phase 3** | Content embeddings with Transformer (MiniLM/DistilBERT) | CRITICAL | `[x]` | Preprocessed text | `notebooks/03_transformer_embeddings.ipynb` | `Pending` |
+| **Phase 3** | Behavioral baseline experiment (Logistic / Random Forest) | HIGH | `[x]` | Behavioral features | Baseline metrics log | `Pending` |
 | **Phase 4** | User-User interaction graph construction | CRITICAL | `[ ]` | Preprocessed data | `notebooks/05_graph_construction.ipynb` | Uncommitted |
 | **Phase 4** | Implement PyG GCN baseline model experiment | HIGH | `[ ]` | Interaction graph | `notebooks/06_gnn_baseline.ipynb` | Uncommitted |
 | **Phase 4** | Implement PyG GraphSAGE model experiment | HIGH | `[ ]` | Interaction graph | `notebooks/07_graphsage_experiment.ipynb` | Uncommitted |
@@ -48,7 +48,7 @@ Legend: `[ ] Not Started` | `[~] In Progress` | `[x] Completed` | `[!] Blocked`
 ## Milestone Summary
 - **Phase 1: Environment Setup & Foundation**: Completed (`100%`)
 - **Phase 2: Data Preprocessing & Features**: Completed (`100%`)
-- **Phase 3: Transformer Embeddings & Behavioral Baseline**: Not Started (`0%`)
+- **Phase 3: Transformer Embeddings & Behavioral Baseline**: Completed (`100%`)
 - **Phase 4: Graph Construction & GNN Baseline**: Not Started (`0%`)
 - **Phase 5: Feature Fusion & Reactive Simulation**: Not Started (`0%`)
 - **Phase 6: FastAPI Backend Serving**: Not Started (`0%`)
