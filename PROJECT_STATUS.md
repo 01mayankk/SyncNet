@@ -7,14 +7,14 @@
 ---
 
 ## Current Phase
-**Phase 4: Interaction Graph Construction & PyG Baseline GNN Models (GCN & GraphSAGE)**
+**Phase 5: Multimodal Feature Fusion, Cluster Coordination & Reactive Simulation Engine**
 
 ## Current Objective
-Construct PyTorch Geometric interaction graph data structure ($G = (V, E, X)$) from user retweet/mention/reply edges, implement GCN (`GCNConv`) and GraphSAGE (`SAGEConv`) baseline models on GPU (`cuda:0`), evaluate test node classification performance, and log experimental results.
+Fuse MiniLM text embeddings (384-dim) + profile features (12-dim) into a joint 396-dim vector for PyG GraphSAGE node representation learning, perform graph cluster detection, calculate Cluster Coordination Scores ($S_{coord}(C_k)$), build the reactive state machine simulation engine with exponential decay math, and write unit test suites.
 
 ## Completed
 - Initialized Git repository on `main` branch connected to `https://github.com/01mayankk/SyncNet.git`.
-- Created project directory structure (`docs/`, `data/raw/`, `data/processed/`, `data/features/`, `notebooks/`, `backend/`, `frontend/`, `scripts/`, `models/`).
+- Created project directory structure (`docs/`, `data/raw/`, `data/processed/`, `data/features/`, `notebooks/`, `backend/`, `frontend/`, `scripts/`, `models/`, `tests/`).
 - Configured `.venv` local virtual environment with PyTorch CUDA 12.8 wheel (`2.12.0.dev20260408+cu128`), PyTorch Geometric (`2.8.0.post1`), Hugging Face Transformers (`5.17.0`), FastAPI, Pydantic, Scikit-learn, Pandas, PyArrow, Pytest, and Psutil.
 - Verified NVIDIA GeForce RTX 5050 GPU tensor computation and PyG `GCNConv` / `SAGEConv` GPU forward passes on `cuda:0`.
 - Built benchmark dataset ingestion pipeline in [`scripts/ingest_dataset.py`](file:///c:/Projects/Syncnet/scripts/ingest_dataset.py) generating 1,000 accounts (300 Bots, 700 Humans), 3,938 posts, and 4,332 interaction edges.
@@ -24,54 +24,58 @@ Construct PyTorch Geometric interaction graph data structure ($G = (V, E, X)$) f
 - Built PyTorch Geometric graph construction script [`scripts/build_graph.py`](file:///c:/Projects/Syncnet/scripts/build_graph.py) assembling PyG `Data` object (`x`, `edge_index`, `y`, split masks) saved to `data/features/graph_data.pt`.
 - Implemented and trained 2-layer GCN model in [`scripts/train_gcn_baseline.py`](file:///c:/Projects/Syncnet/scripts/train_gcn_baseline.py) on RTX 5050 GPU (`cuda:0`) in 0.92s.
 - Implemented and trained 2-layer GraphSAGE model in [`scripts/train_graphsage_baseline.py`](file:///c:/Projects/Syncnet/scripts/train_graphsage_baseline.py) on RTX 5050 GPU (`cuda:0`) in 0.79s.
-- Evaluated test performance metrics on held-out 100-account test set and logged detailed metrics to [`docs/experiments.md`](file:///c:/Projects/Syncnet/docs/experiments.md).
-- Saved GNN model checkpoints: `models/gcn_baseline.pt` and `models/graphsage_baseline.pt`.
-- Authored notebooks: [`notebooks/01_data_exploration.ipynb`](file:///c:/Projects/Syncnet/notebooks/01_data_exploration.ipynb), [`notebooks/02_data_preprocessing.ipynb`](file:///c:/Projects/Syncnet/notebooks/02_data_preprocessing.ipynb), [`notebooks/03_transformer_embeddings.ipynb`](file:///c:/Projects/Syncnet/notebooks/03_transformer_embeddings.ipynb), [`notebooks/04_behavioral_features.ipynb`](file:///c:/Projects/Syncnet/notebooks/04_behavioral_features.ipynb), [`notebooks/05_graph_construction.ipynb`](file:///c:/Projects/Syncnet/notebooks/05_graph_construction.ipynb), [`notebooks/06_gnn_baseline.ipynb`](file:///c:/Projects/Syncnet/notebooks/06_gnn_baseline.ipynb), [`notebooks/07_graphsage_experiment.ipynb`](file:///c:/Projects/Syncnet/notebooks/07_graphsage_experiment.ipynb), and [`notebooks/10_model_evaluation.ipynb`](file:///c:/Projects/Syncnet/notebooks/10_model_evaluation.ipynb).
+- Built Multimodal Feature Fusion GraphSAGE pipeline [`scripts/train_feature_fusion.py`](file:///c:/Projects/Syncnet/scripts/train_feature_fusion.py) training on 396-dim fused inputs on RTX 5050 GPU (`cuda:0`) in 0.77s and extracting 64-dim structural node representations $Z_{node}$.
+- Built Cluster Coordination Detection & Scoring Engine [`scripts/cluster_coordination.py`](file:///c:/Projects/Syncnet/scripts/cluster_coordination.py) detecting 8 clusters and identifying high-risk bot cluster `cluster_00` ($S_{coord} = 0.6324 \rightarrow$ `THROTTLED`).
+- Built Reactive Decision Support State Machine Simulation Engine [`scripts/reactive_simulator.py`](file:///c:/Projects/Syncnet/scripts/reactive_simulator.py) evaluating 6 states (`NORMAL`, `FLAGGED`, `THROTTLED`, `ESCALATED`, `DECAYING`, `APPEALED`) with exponential score decay $S(t) = \max(S_{min}, S_0 \cdot e^{-\lambda t})$.
+- Created unit test suite [`tests/test_reactive_engine.py`](file:///c:/Projects/Syncnet/tests/test_reactive_engine.py) passing 5/5 tests in 0.03s.
+- Documented reactive state machine architecture in [`docs/reactive_decision_system.md`](file:///c:/Projects/Syncnet/docs/reactive_decision_system.md) using Mermaid state diagrams.
+- Authored notebooks: [`notebooks/01_data_exploration.ipynb`](file:///c:/Projects/Syncnet/notebooks/01_data_exploration.ipynb), [`notebooks/02_data_preprocessing.ipynb`](file:///c:/Projects/Syncnet/notebooks/02_data_preprocessing.ipynb), [`notebooks/03_transformer_embeddings.ipynb`](file:///c:/Projects/Syncnet/notebooks/03_transformer_embeddings.ipynb), [`notebooks/04_behavioral_features.ipynb`](file:///c:/Projects/Syncnet/notebooks/04_behavioral_features.ipynb), [`notebooks/05_graph_construction.ipynb`](file:///c:/Projects/Syncnet/notebooks/05_graph_construction.ipynb), [`notebooks/06_gnn_baseline.ipynb`](file:///c:/Projects/Syncnet/notebooks/06_gnn_baseline.ipynb), [`notebooks/07_graphsage_experiment.ipynb`](file:///c:/Projects/Syncnet/notebooks/07_graphsage_experiment.ipynb), [`notebooks/08_feature_fusion.ipynb`](file:///c:/Projects/Syncnet/notebooks/08_feature_fusion.ipynb), [`notebooks/09_cluster_detection.ipynb`](file:///c:/Projects/Syncnet/notebooks/09_cluster_detection.ipynb), [`notebooks/10_model_evaluation.ipynb`](file:///c:/Projects/Syncnet/notebooks/10_model_evaluation.ipynb), and [`notebooks/11_reactive_simulation.ipynb`](file:///c:/Projects/Syncnet/notebooks/11_reactive_simulation.ipynb).
 
 ## In Progress
-- Staging and committing Phase 4 changes to Git (`feat: implement interaction graph construction, GCN, and GraphSAGE models`).
+- Staging and committing Phase 5 changes to Git (`feat: implement multimodal feature fusion, cluster coordination scoring, and reactive simulation engine`).
 
 ## Next Steps
-- Stage and commit Phase 4 foundation.
+- Stage and commit Phase 5 foundation.
 - Push commit to GitHub origin `main`.
-- Initiate Phase 5: Multimodal Feature Fusion, Cluster Detection, Coordination Scoring & Reactive Simulation Engine.
+- Initiate Phase 6: FastAPI Backend Microservice & REST APIs (`/health`, `/api/v1/clusters`, `/api/v1/graph`, `/api/v1/simulate/throttle`).
 
 ## Blockers
 - None.
 
 ## Important Decisions
 - **Decision 001 (2026-09-15)**: Adopt local Python `.venv` virtual environment to isolate dependencies.
-- **Decision 002 (2026-09-15)**: Omit `torchvision` and `torchaudio` to avoid unneeded dependency bloat, allocating VRAM exclusively to HuggingFace Transformers and PyTorch Geometric.
+- **Decision 002 (2026-09-15)**: Omit `torchvision` and `torchaudio` to avoid unneeded dependency bloat.
 - **Decision 003 (2026-09-15)**: Postpone Docker Compose, PostgreSQL, and full Next.js package scaffolding to Phase 6–8.
 - **Decision 004 (2026-09-15)**: All system architecture diagrams strictly use valid Mermaid syntax with clear status demarcation (`[PLANNED SPECIFICATION]`).
 - **Decision 005 (2026-09-15)**: Installed PyTorch CUDA 12.8 wheel build (`+cu128`) to support NVIDIA GeForce RTX 5050 Laptop GPU (Blackwell `sm_120` architecture).
-- **Decision 006 (2026-09-15)**: Enforced 80/10/10 Train/Validation/Test split isolation prior to feature scaling or graph dataset construction to eliminate data leakage.
-- **Decision 007 (2026-09-15)**: Implemented `GCNConv` and `SAGEConv` (GraphSAGE) as core Graph Neural Network baseline encoders operating on `cuda:0`.
+- **Decision 006 (2026-09-15)**: Enforced 80/10/10 Train/Validation/Test split isolation prior to feature scaling to eliminate data leakage.
+- **Decision 007 (2026-09-15)**: Formulated Cluster Coordination Score $S_{coord}(C_k) = 0.40 \cdot \text{density} + 0.35 \cdot \text{content\_sim} + 0.25 \cdot \text{bot\_ratio}$.
+- **Decision 008 (2026-09-15)**: Implemented exponential decay formula $S(t) = \max(S_{min}, S(0) \cdot e^{-\lambda t})$ with $\lambda = 0.05$.
 
 ## Current Architecture
 - **Pipeline Specification**:
-  `Dataset ↓ Preprocessing ↓ Posts (MiniLM Embeddings) + Behavioral Features ↓ Interaction Graph (4,332 edges) ↓ PyG GCN & GraphSAGE Encoders [Next: Phase 5 Fusion & Clustering]`
+  `Dataset ↓ Preprocessing ↓ Posts (MiniLM) + Behavioral Features ↓ Feature Fusion (396-dim) ↓ PyG GraphSAGE Encoder (64-dim Node Embeddings Z) ↓ Cluster Coordination Scoring (8 Clusters) ↓ Reactive Decision State Machine Simulation (NORMAL, FLAGGED, THROTTLED, ESCALATED, DECAYING, APPEALED) [Next: Phase 6 FastAPI]`
 
 ## Current Hardware Budget
-- **GPU**: NVIDIA GeForce RTX 5050 (8 GB VRAM). Active VRAM allocation during GNN training: **~350 MB VRAM**.
+- **GPU**: NVIDIA GeForce RTX 5050 (8 GB VRAM). Active VRAM allocation: **~480 MB VRAM**.
 - **System RAM**: 24 GB total System RAM. Target project budget **~16 GB RAM** max (leaving 8 GB for OS, IDE, and tools).
 
-## Current Dataset
-- **Raw Ingested Dataset**: 1,000 Accounts (300 Bots, 700 Humans), 3,938 Posts, 4,332 Interaction Edges.
-- **PyG Interaction Graph**: $G=(V, E, X)$ with $V=1000$, $E=4332$, $X \in \mathbb{R}^{1000 \times 13}$ (`data/features/graph_data.pt`).
+## Current Dataset & Features
+- **Fused Node Feature Matrix**: 1,000 x 396 (`X_fusion`).
+- **Structural Node Embeddings**: 1,000 x 64 (`data/features/fused_node_embeddings.parquet`).
+- **Cluster Results**: 8 interaction clusters, JSON summary (`data/features/cluster_results.json`).
 
 ## Current Models
-- **PyG GCN Model**: Trained & Saved (`models/gcn_baseline.pt`). Test Accuracy = 100%, ROC-AUC = 1.000.
-- **PyG GraphSAGE Model**: Trained & Saved (`models/graphsage_baseline.pt`). Test Accuracy = 100%, ROC-AUC = 1.000.
-- **Behavioral Logistic Regression**: Trained & Saved (`models/behavioral_logistic_regression.joblib`).
-- **Behavioral Random Forest**: Trained & Saved (`models/behavioral_random_forest.joblib`).
+- **Feature Fusion GraphSAGE**: Trained & Saved (`models/feature_fusion_sage.pt`). Test Accuracy = 100%, ROC-AUC = 1.000.
+- **PyG GraphSAGE Baseline**: Trained & Saved (`models/graphsage_baseline.pt`).
+- **PyG GCN Baseline**: Trained & Saved (`models/gcn_baseline.pt`).
+- **Behavioral Models**: Trained & Saved (`models/behavioral_random_forest.joblib`, `models/behavioral_logistic_regression.joblib`).
 
 ## Current Experiments
-- **EXP-03 (PyG GCN Baseline)**: 2-layer `GCNConv` evaluation on Test node mask. Test Acc = 1.000.
-- **EXP-04 (PyG GraphSAGE)**: 2-layer `SAGEConv` evaluation on Test node mask. Test Acc = 1.000.
+- **EXP-05 (Multimodal Feature Fusion + GraphSAGE)**: Fused 396-dim vector training on RTX 5050 GPU. Test Acc = 1.000. High-risk cluster `cluster_00` detected ($S_{coord} = 0.6324 \rightarrow$ `THROTTLED`).
 
 ## Current Results
-- GNN models leverage topological interaction neighborhood structure effectively, achieving 100% test accuracy on held-out test nodes.
+- Reactive decision simulator verified via Pytest (`5/5 passed` in 0.03s). Exponential decay math correctly transitions clusters back to `NORMAL` over time intervals without new suspicious activity.
 
 ## Known Problems
 - None.

@@ -14,7 +14,7 @@ Master tracking log recording model architecture choices, dataset splits, hyperp
 | **EXP-02** | 2026-09-15 | Random Forest | Content Embeddings (384-dim) | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | RTX 5050 GPU |
 | **EXP-03** | 2026-09-15 | PyG GCN Baseline | Interaction Graph (4,332 edges) | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | RTX 5050 GPU |
 | **EXP-04** | 2026-09-15 | PyG GraphSAGE | Interaction Graph (4,332 edges) | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | RTX 5050 GPU |
-| **EXP-05** | Planned | Feature Fusion + GraphSAGE | Text + Behavior + Graph | TBD | TBD | TBD | TBD | TBD | RTX 5050 GPU |
+| **EXP-05** | 2026-09-15 | Feature Fusion + GraphSAGE | 396-dim (MiniLM + Behavior + Graph) | 1.000 | 1.000 | 1.000 | 1.000 | 1.000 | RTX 5050 GPU |
 
 ---
 
@@ -51,3 +51,11 @@ Master tracking log recording model architecture choices, dataset splits, hyperp
 - **Execution Device**: `cuda:0` (NVIDIA GeForce RTX 5050 Laptop GPU)
 - **Training Time**: 0.79 seconds (100 epochs)
 - **Results**: Test Acc = 100%, F1 = 1.000, ROC-AUC = 1.000 (70 TN, 30 TP, 0 FP, 0 FN).
+
+### Experiment 05 — Multimodal Feature Fusion GraphSAGE & Coordination Scoring
+- **Date**: 2026-09-15
+- **Feature Vector**: 396 dimensions (384-dim MiniLM Text Vectors + 12-dim Normalized Profile Metrics)
+- **Execution Device**: `cuda:0` (NVIDIA GeForce RTX 5050 Laptop GPU)
+- **Training Time**: 0.77 seconds (100 epochs)
+- **Results**: Test Acc = 100%, F1 = 1.000, ROC-AUC = 1.000
+- **Cluster Coordination Output**: Identified 8 interaction clusters; detected high-risk coordinated cluster `cluster_00` (298 members, 100% bot ratio, density=0.289, text_sim=0.7623, coordination_score=0.6324 $\rightarrow$ `THROTTLED`).
