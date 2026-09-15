@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  syncnet-backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: syncnet-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - ENVIRONMENT=production
+      - DEBUG=false
+      - API_HOST=0.0.0.0
+      - API_PORT=8000
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+    restart: unless-stopped
+
+  syncnet-frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: syncnet-frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+    depends_on:
+      - syncnet-backend
+    restart: unless-stopped
