@@ -30,10 +30,10 @@ Legend: `[ ] Not Started` | `[~] In Progress` | `[x] Completed` | `[!] Blocked`
 | **Phase 4** | User-User interaction graph construction | CRITICAL | `[x]` | Preprocessed data | `notebooks/05_graph_construction.ipynb` | `2a1e0dd` |
 | **Phase 4** | Implement PyG GCN baseline model experiment | HIGH | `[x]` | Interaction graph | `notebooks/06_gnn_baseline.ipynb` | `2a1e0dd` |
 | **Phase 4** | Implement PyG GraphSAGE model experiment | HIGH | `[x]` | Interaction graph | `notebooks/07_graphsage_experiment.ipynb` | `2a1e0dd` |
-| **Phase 5** | Feature fusion model (Transformer + Behavior + Graph) | CRITICAL | `[x]` | Embeddings + Graph | `notebooks/08_feature_fusion.ipynb` | `Pending` |
-| **Phase 5** | Cluster detection & representation learning | HIGH | `[x]` | Feature fusion | `notebooks/09_cluster_detection.ipynb` | `Pending` |
-| **Phase 5** | Cluster coordination score formulation | HIGH | `[x]` | Cluster detection | Coordination scoring module | `Pending` |
-| **Phase 5** | Reactive decision state machine & decay simulation | HIGH | `[x]` | Coordination score | `notebooks/11_reactive_simulation.ipynb` | `Pending` |
+| **Phase 5** | Feature fusion model (Transformer + Behavior + Graph) | CRITICAL | `[x]` | Embeddings + Graph | `notebooks/08_feature_fusion.ipynb` | `9bb5aed` |
+| **Phase 5** | Cluster detection & representation learning | HIGH | `[x]` | Feature fusion | `notebooks/09_cluster_detection.ipynb` | `9bb5aed` |
+| **Phase 5** | Cluster coordination score formulation | HIGH | `[x]` | Cluster detection | Coordination scoring module | `9bb5aed` |
+| **Phase 5** | Reactive decision state machine & decay simulation | HIGH | `[x]` | Coordination score | `notebooks/11_reactive_simulation.ipynb` | `9bb5aed` |
 | **Phase 6** | FastAPI backend API routers & Pydantic schemas | HIGH | `[ ]` | Models & Reactive logic | `backend/app/api/` endpoints | Uncommitted |
 | **Phase 6** | Model artifact loading & inference serving pipeline | CRITICAL | `[ ]` | Trained checkpoints | `backend/app/inference/` | Uncommitted |
 | **Phase 6** | Pytest unit test suite for backend & reactive engine | HIGH | `[ ]` | FastAPI backend | `backend/tests/` passing | Uncommitted |
