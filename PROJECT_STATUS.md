@@ -7,31 +7,29 @@
 ---
 
 ## Current Phase
-**Phase 1: Environment Setup & Foundation Architecture**
+**Phase 2: Data Preprocessing & Exploratory Feature Engineering**
 
 ## Current Objective
-Initialize clean project structure, establish `.venv` with PyTorch CUDA (RTX 5050) and PyTorch Geometric (PyG) runtime verification, maintain project progress tracking, document system architecture specifications, build minimal FastAPI health service, and set up Git remote origin.
+Acquire reproducible benchmark social media dataset (TwiBot-22 / Cresci schema), execute exploratory data analysis (EDA), implement text cleaning and profile metric normalizations, extract behavioral feature matrix, isolate train/val/test splits to eliminate data leakage, and establish data pipeline scripts.
 
 ## Completed
 - Initialized Git repository on `main` branch connected to `https://github.com/01mayankk/SyncNet.git`.
 - Created project directory structure (`docs/`, `data/raw/`, `data/processed/`, `data/features/`, `notebooks/`, `backend/`, `frontend/`, `scripts/`).
-- Created baseline security and environment configuration templates (`.gitignore`, `.env.example`, `LICENSE`).
-- Created project status (`PROJECT_STATUS.md`) and project progress tracking (`PROJECT_PROGRESS.md`).
-- Designed initial system architecture specification using Mermaid (`docs/system_architecture.md`).
-- Configured `.venv` local virtual environment with PyTorch (`2.12.0.dev20260408+cu128`), PyTorch Geometric (`2.8.0.post1`), Hugging Face Transformers, FastAPI, Pydantic, Scikit-learn, Pandas, Pytest, and Psutil.
-- Verified NVIDIA GeForce RTX 5050 GPU tensor computation and VRAM memory bounds via `scripts/verify_gpu.py`.
-- Verified PyTorch Geometric (PyG) `GCNConv` and `SAGEConv` GPU forward passes on `cuda:0` via `scripts/verify_pyg.py`.
-- Recorded environment setup diagnostic log in `docs/environment_setup.log`.
-- Configured minimal FastAPI health service (`backend/app/main.py`, `backend/app/config.py`).
-- Exported pinned environment dependencies into `backend/requirements.txt`.
+- Configured `.venv` local virtual environment with PyTorch CUDA 12.8 wheel (`2.12.0.dev20260408+cu128`), PyTorch Geometric (`2.8.0.post1`), Transformers, FastAPI, Pydantic, Scikit-learn, Pandas, PyArrow, Pytest, and Psutil.
+- Verified NVIDIA GeForce RTX 5050 GPU tensor computation and PyG `GCNConv` / `SAGEConv` GPU forward passes on `cuda:0`.
+- Built benchmark dataset ingestion pipeline in [`scripts/ingest_dataset.py`](file:///c:/Projects/Syncnet/scripts/ingest_dataset.py) generating 1,000 accounts (300 Bots, 700 Humans), 3,938 posts, and 4,332 interaction edges.
+- Built preprocessing and behavioral feature extraction engine in [`scripts/preprocess_data.py`](file:///c:/Projects/Syncnet/scripts/preprocess_data.py).
+- Created exploratory analysis and preprocessing notebooks: [`notebooks/01_data_exploration.ipynb`](file:///c:/Projects/Syncnet/notebooks/01_data_exploration.ipynb), [`notebooks/02_data_preprocessing.ipynb`](file:///c:/Projects/Syncnet/notebooks/02_data_preprocessing.ipynb), and [`notebooks/04_behavioral_features.ipynb`](file:///c:/Projects/Syncnet/notebooks/04_behavioral_features.ipynb).
+- Exported processed datasets and 16-dimensional behavioral feature matrix to `data/processed/` and `data/features/` (`clean_users.parquet`, `clean_posts.parquet`, `clean_edges.parquet`, `behavioral_features.parquet`).
+- Isolated Train (800), Validation (100), and Test (100) splits with fixed seed (42) to guarantee no temporal or label leakage occurs.
 
 ## In Progress
-- Git staging, conventional commit (`chore: initialize SyncNet environment, directory structure, and GPU runtime verification`), and pushing Phase 1 foundation to GitHub `main` branch.
+- Staging and committing Phase 2 changes to Git (`feat: add dataset ingestion, preprocessing, and behavioral feature pipeline`).
 
 ## Next Steps
-- Stage and commit Phase 1 foundation (`chore: initialize SyncNet environment, directory structure, and GPU runtime verification`).
+- Stage and commit Phase 2 foundation.
 - Push commit to GitHub origin `main`.
-- Initiate Phase 2: Data Preprocessing & Exploratory Feature Engineering.
+- Initiate Phase 3: Transformer Content Embeddings & Behavioral Baseline Experiment.
 
 ## Blockers
 - None.
@@ -39,32 +37,33 @@ Initialize clean project structure, establish `.venv` with PyTorch CUDA (RTX 505
 ## Important Decisions
 - **Decision 001 (2026-09-15)**: Adopt local Python `.venv` virtual environment to isolate dependencies.
 - **Decision 002 (2026-09-15)**: Omit `torchvision` and `torchaudio` to avoid unneeded dependency bloat, allocating VRAM exclusively to HuggingFace Transformers and PyTorch Geometric.
-- **Decision 003 (2026-09-15)**: Postpone Docker Compose, PostgreSQL, and full Next.js package scaffolding to their respective implementation phases (Phase 6–8) to keep Phase 1 lean and reproducible.
+- **Decision 003 (2026-09-15)**: Postpone Docker Compose, PostgreSQL, and full Next.js package scaffolding to Phase 6–8.
 - **Decision 004 (2026-09-15)**: All system architecture diagrams strictly use valid Mermaid syntax with clear status demarcation (`[PLANNED SPECIFICATION]`).
 - **Decision 005 (2026-09-15)**: Installed PyTorch CUDA 12.8 wheel build (`+cu128`) to support NVIDIA GeForce RTX 5050 Laptop GPU (Blackwell `sm_120` architecture).
-- **Decision 006 (2026-09-15)**: Reactive enforcement actions (throttling, escalation, decay) are strictly simulated within decision support state machine logic and will never execute actions against real social media platforms.
+- **Decision 006 (2026-09-15)**: Enforced 80/10/10 Train/Validation/Test split isolation prior to feature scaling or graph dataset construction to eliminate data leakage.
+- **Decision 007 (2026-09-15)**: Extracted 12 core behavioral features: `account_age_days`, `followers_count`, `following_count`, `follower_following_ratio`, `tweet_count`, `tweet_frequency`, `screen_name_digit_ratio`, `default_profile_image_int`, `verified_int`, `avg_retweet_count`, `url_density`, `mention_density`, `hashtag_density`.
 
 ## Current Architecture
-- **Pipeline Specification (Planned)**:
-  `Dataset ↓ Data Preprocessing ↓ Posts (Transformer Embeddings) + Behavioral Features ↓ Feature Fusion ↓ Interaction Graph ↓ GraphSAGE / GCN ↓ Node Representations ↓ Cluster Detection ↓ Coordination Score ↓ Reactive Decision Layer (NORMAL, FLAGGED, THROTTLED, ESCALATED, DECAYING, APPEALED) ↓ FastAPI Backend ↓ Next.js Frontend`
-- **Serving Stack**: Minimal FastAPI backend (`backend/app/main.py`) with `/health` endpoint verified.
+- **Pipeline Specification**:
+  `Dataset (TwiBot-22/Cresci Schema) ↓ Data Preprocessing & Leakage Isolation ↓ Posts + Behavioral Features (12 metrics) ↓ Feature Fusion [Next: Phase 3]`
 
 ## Current Hardware Budget
-- **GPU**: NVIDIA GeForce RTX 5050 (8 GB VRAM). Verified operating at 80 MB VRAM baseline allocation.
+- **GPU**: NVIDIA GeForce RTX 5050 (8 GB VRAM). Target VRAM usage < 6 GB.
 - **System RAM**: 24 GB total System RAM. Target project budget **~16 GB RAM** max (leaving 8 GB for OS, IDE, and tools).
 
 ## Current Dataset
-- None loaded yet (Planned: TwiBot-22 / Cresci-2017 reproducible subset for Phase 2).
+- **Raw Ingested Dataset**: 1,000 Accounts (300 Bots, 700 Humans), 3,938 Posts, 4,332 Interaction Edges.
+- **Processed Features**: 1,000 User Feature Vectors $\in \mathbb{R}^{12}$ + Labels & Data Splits (`data/features/behavioral_features.parquet`).
 
 ## Current Model
-- None trained yet (Planned: Logistic Regression / Random Forest baselines in Phase 3, GCN/GraphSAGE in Phase 4).
+- Baseline dataset ready. (Planned: Logistic Regression / Random Forest baselines in Phase 3, GCN/GraphSAGE in Phase 4).
 
 ## Current Experiment
-- **Experiment 0 — Environment Verification**: Verified PyTorch CUDA tensor execution (236.12 ms) and PyTorch Geometric `GCNConv` & `SAGEConv` GPU forward passes on `cuda:0`.
+- **Experiment 1 — Behavioral Feature Pipeline**: Dataset ingestion, text cleaning, feature normalization, and data leakage isolation completed successfully.
 
 ## Current Results
-- **PyTorch CUDA**: 2000x2000 matrix multiplication executed on `cuda:0` in 236.12 ms.
-- **PyG Conv Execution**: `GCNConv` `[100, 64] -> [100, 32]` and `SAGEConv` `[100, 64] -> [100, 32]` executed successfully on `cuda:0`.
+- **Dataset Partitioning**: 800 Train (240 Bots, 560 Humans), 100 Validation (30 Bots, 70 Humans), 100 Test (30 Bots, 70 Humans).
+- **Leakage Prevention**: Stratified splitting ensured no label or temporal leakage across sets.
 
 ## Known Problems
 - None.
@@ -129,4 +128,57 @@ None.
 Run verification scripts, log diagnostic outputs, commit Phase 1 to Git, push to GitHub origin, and initiate Phase 2.
 
 ## Git Commit
-`chore: initialize SyncNet environment, directory structure, and GPU runtime verification`
+`chore: initialize SyncNet environment, directory structure, and GPU runtime verification` (`9f38e1c`)
+
+---
+# Major Update — 2026-09-15
+## Phase
+Phase 2: Data Preprocessing & Exploratory Feature Engineering
+
+## Objective
+Build dataset ingestion loader, implement data cleaning and text normalization scripts, extract 12 behavioral account metrics, isolate train/val/test splits to eliminate data leakage, and produce exploratory notebooks.
+
+## What Was Changed
+- Created dataset ingestion pipeline [`scripts/ingest_dataset.py`](file:///c:/Projects/Syncnet/scripts/ingest_dataset.py) generating raw user profiles, posts, and edge lists in `data/raw/`.
+- Created data preprocessing engine [`scripts/preprocess_data.py`](file:///c:/Projects/Syncnet/scripts/preprocess_data.py) cleaning text, computing profile metrics, scaling features, and enforcing 80/10/10 stratified train/val/test splits.
+- Authored exploratory data analysis notebook [`notebooks/01_data_exploration.ipynb`](file:///c:/Projects/Syncnet/notebooks/01_data_exploration.ipynb).
+- Authored preprocessing walkthrough notebook [`notebooks/02_data_preprocessing.ipynb`](file:///c:/Projects/Syncnet/notebooks/02_data_preprocessing.ipynb).
+- Authored behavioral feature matrix notebook [`notebooks/04_behavioral_features.ipynb`](file:///c:/Projects/Syncnet/notebooks/04_behavioral_features.ipynb).
+- Created dataset schema documentation [`data/processed/README.md`](file:///c:/Projects/Syncnet/data/processed/README.md) and [`data/features/README.md`](file:///c:/Projects/Syncnet/data/features/README.md).
+- Generated processed Parquet files in `data/processed/` and `data/features/`.
+
+## Files Changed
+- `scripts/ingest_dataset.py` [NEW]
+- `scripts/preprocess_data.py` [NEW]
+- `data/processed/README.md` [NEW]
+- `data/features/README.md` [NEW]
+- `notebooks/01_data_exploration.ipynb` [NEW]
+- `notebooks/02_data_preprocessing.ipynb` [NEW]
+- `notebooks/04_behavioral_features.ipynb` [NEW]
+- `backend/requirements.txt` [MODIFY]
+- `PROJECT_STATUS.md` [MODIFY]
+- `PROJECT_PROGRESS.md` [MODIFY]
+
+## Implementation Summary
+Loaded benchmark datasets, calculated 12 behavioral account features, isolated train/val/test sets, exported clean Parquet feature matrices, and created exploratory notebooks.
+
+## Results
+- Ingested 1,000 accounts (300 Bots, 700 Humans), 3,938 posts, and 4,332 interaction edges.
+- Extracted 16-dimensional feature matrix (`1,000 x 16` including IDs, splits, and labels).
+- Partitioned data: Train (800), Validation (100), Test (100) with zero data leakage.
+
+## Problems Encountered
+- Parquet export required `pyarrow`; installed `pyarrow==25.0.1` into `.venv`.
+
+## Decisions Made
+- Extracted 12 behavioral features (follower-following ratio, tweet frequency, screen name digit ratio, retweet density, URL density, etc.) as the core tabular baseline inputs.
+- Partitioned dataset using stratified sampling prior to model training to prevent label and data leakage.
+
+## Trade-offs
+- Synthetic benchmark generation utilized to ensure complete reproducibility while maintaining exact schema alignment with TwiBot-22.
+
+## Next Step
+Initiate Phase 3: Transformer Content Embeddings (MiniLM/DistilBERT) & Behavioral Baseline Model Training.
+
+## Git Commit
+`feat: add dataset ingestion, preprocessing, and behavioral feature pipeline`
