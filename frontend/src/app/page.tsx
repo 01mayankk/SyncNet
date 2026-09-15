@@ -67,41 +67,39 @@ export default function SyncNetDashboard() {
   const throttledClusters = clusters.filter((c) => c.status === 'THROTTLED' || c.status === 'ESCALATED').length;
 
   return (
-    <main className="min-h-screen p-4 md:p-8 space-y-6 max-w-7xl mx-auto">
+    <main className="dashboard-container">
       {/* Header Bar */}
-      <header className="glass-card p-5 border-cyan-500/30 flex flex-wrap items-center justify-between gap-4">
+      <header className="cyber-header">
         <div className="flex items-center gap-3">
-          <div className="p-3 rounded-2xl bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-500/40 text-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.3)]">
-            <ShieldCheck className="w-8 h-8" />
+          <div className="p-3 rounded-2xl bg-cyan-500/10 border border-cyan-500/40 text-cyan-400 shadow-[0_0_20px_rgba(6,182,212,0.3)]">
+            <ShieldCheck className="w-8 h-8 text-cyan-400" />
           </div>
           <div>
-            <h1 className="text-xl md:text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400">
+            <h1 className="cyber-title">
               SyncNet Operations Defense Center
             </h1>
-            <p className="text-xs text-slate-400 flex items-center gap-2 mt-0.5">
-              <span>Coordinated Bot-Network Detection & Reactive Throttling</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" />
-              <span className="text-cyan-400 font-mono">v0.1.0</span>
+            <p className="cyber-subtitle">
+              Coordinated Bot-Network Detection & Reactive Throttling • <span className="text-cyan-400 font-mono">v0.1.0</span>
             </p>
           </div>
         </div>
 
         {/* Hardware Status Widget */}
-        <div className="flex items-center gap-4 text-xs">
-          <div className="flex items-center gap-2 bg-slate-900/90 px-3 py-2 rounded-xl border border-slate-800">
+        <div className="hardware-widget">
+          <div className="hardware-pill">
             <Cpu className="w-4 h-4 text-emerald-400" />
             <div>
-              <span className="text-slate-400 block text-[10px]">GPU ACCELERATOR</span>
+              <span className="text-slate-400 block text-[10px] uppercase font-bold">GPU ACCELERATOR</span>
               <span className="font-mono text-emerald-400 font-semibold">
-                {health ? health.gpu_name.split(' ')[2] || 'RTX 5050' : 'RTX 5050'}
+                {health ? health.gpu_name.replace('Laptop GPU', '') || 'RTX 5050' : 'RTX 5050'}
               </span>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 bg-slate-900/90 px-3 py-2 rounded-xl border border-slate-800">
+          <div className="hardware-pill">
             <Server className="w-4 h-4 text-cyan-400" />
             <div>
-              <span className="text-slate-400 block text-[10px]">MEM BUDGET</span>
+              <span className="text-slate-400 block text-[10px] uppercase font-bold">MEM BUDGET</span>
               <span className="font-mono text-cyan-400 font-semibold">
                 VRAM: 8GB | RAM: 16GB
               </span>
@@ -110,68 +108,64 @@ export default function SyncNetDashboard() {
 
           <button
             onClick={loadAllData}
-            className="p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-colors"
+            className="p-2.5 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-colors"
             title="Refresh System Data"
           >
-            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin text-cyan-400' : ''}`} />
           </button>
         </div>
       </header>
 
       {/* Top Overview Metrics Row */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="glass-card p-4 space-y-1">
-          <div className="flex items-center justify-between text-xs text-slate-400">
+      <div className="metrics-grid">
+        <div className="metric-card">
+          <div className="metric-header">
             <span>Monitored Accounts</span>
             <Users className="w-4 h-4 text-cyan-400" />
           </div>
-          <div className="text-2xl font-extrabold font-mono text-slate-100">{totalNodes}</div>
-          <p className="text-[10px] text-slate-400">1000 Accounts | 4,332 Edges</p>
+          <div className="metric-value text-slate-100">{totalNodes}</div>
+          <p className="metric-footer">1,000 Accounts | 4,332 Edges</p>
         </div>
 
-        <div className="glass-card p-4 space-y-1">
-          <div className="flex items-center justify-between text-xs text-slate-400">
-            <span>Bot Ratio</span>
+        <div className="metric-card">
+          <div className="metric-header">
+            <span>Bot Detection Ratio</span>
             <Activity className="w-4 h-4 text-rose-400" />
           </div>
-          <div className="text-2xl font-extrabold font-mono text-rose-400">
+          <div className="metric-value text-rose-400">
             {((totalBots / Math.max(1, totalNodes)) * 100).toFixed(1)}%
           </div>
-          <p className="text-[10px] text-slate-400">{totalBots} Bot Accounts Detected</p>
+          <p className="metric-footer">{totalBots} Bot Accounts Detected</p>
         </div>
 
-        <div className="glass-card p-4 space-y-1">
-          <div className="flex items-center justify-between text-xs text-slate-400">
+        <div className="metric-card">
+          <div className="metric-header">
             <span>High-Risk Clusters</span>
             <AlertTriangle className="w-4 h-4 text-amber-400" />
           </div>
-          <div className="text-2xl font-extrabold font-mono text-amber-400">
+          <div className="metric-value text-amber-400">
             {highRiskClusters} / {clusters.length || 8}
           </div>
-          <p className="text-[10px] text-slate-400">S_coord(C_k) ≥ 0.60</p>
+          <p className="metric-footer">S_coord(C_k) ≥ 0.60</p>
         </div>
 
-        <div className="glass-card p-4 space-y-1">
-          <div className="flex items-center justify-between text-xs text-slate-400">
+        <div className="metric-card">
+          <div className="metric-header">
             <span>Simulated Throttled</span>
             <Zap className="w-4 h-4 text-purple-400" />
           </div>
-          <div className="text-2xl font-extrabold font-mono text-purple-400">
+          <div className="metric-value text-purple-400">
             {throttledClusters} Clusters
           </div>
-          <p className="text-[10px] text-slate-400">Reactive Decision Engine</p>
+          <p className="metric-footer">Reactive Decision Engine</p>
         </div>
       </div>
 
       {/* Main Content Tabs Navigation */}
-      <div className="flex items-center gap-2 border-b border-slate-800 pb-3">
+      <div className="tab-bar">
         <button
           onClick={() => setActiveTab('topology')}
-          className={`cyber-btn text-xs ${
-            activeTab === 'topology'
-              ? 'cyber-btn-primary'
-              : 'bg-slate-900/60 text-slate-400 hover:text-slate-200 border-slate-800'
-          }`}
+          className={`tab-btn ${activeTab === 'topology' ? 'tab-btn-active' : ''}`}
         >
           <Network className="w-4 h-4" />
           Interaction Network Graph
@@ -179,11 +173,7 @@ export default function SyncNetDashboard() {
 
         <button
           onClick={() => setActiveTab('clusters')}
-          className={`cyber-btn text-xs ${
-            activeTab === 'clusters'
-              ? 'cyber-btn-primary'
-              : 'bg-slate-900/60 text-slate-400 hover:text-slate-200 border-slate-800'
-          }`}
+          className={`tab-btn ${activeTab === 'clusters' ? 'tab-btn-active' : ''}`}
         >
           <Users className="w-4 h-4" />
           Cluster Coordination Intelligence
@@ -191,11 +181,7 @@ export default function SyncNetDashboard() {
 
         <button
           onClick={() => setActiveTab('simulation')}
-          className={`cyber-btn text-xs ${
-            activeTab === 'simulation'
-              ? 'cyber-btn-primary'
-              : 'bg-slate-900/60 text-slate-400 hover:text-slate-200 border-slate-800'
-          }`}
+          className={`tab-btn ${activeTab === 'simulation' ? 'tab-btn-active' : ''}`}
         >
           <Sliders className="w-4 h-4" />
           Reactive Throttling Controls
@@ -203,9 +189,9 @@ export default function SyncNetDashboard() {
       </div>
 
       {/* Main Tab Views */}
-      <div className="space-y-6">
+      <div className="w-full">
         {activeTab === 'topology' && (
-          <div className="space-y-4">
+          <div className="w-full">
             {graphData && (
               <NetworkGraph
                 nodes={graphData.nodes}
